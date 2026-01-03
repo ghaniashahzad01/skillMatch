@@ -9,18 +9,7 @@
 
 <body class="bg-gray-950 text-gray-100 min-h-screen">
 
-    <!-- NAVBAR -->
-    <nav class="bg-gray-900 border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold text-blue-500">
-                SkillMatch
-            </h1>
-
-            <div class="text-gray-300">
-                Logged in as <span class="text-white font-semibold">{{ request.user.username }}</span>
-            </div>
-        </div>
-    </nav>
+   {% include 'base/navbar.html' %}
 
     <!-- MAIN CONTENT -->
     <div class="max-w-7xl mx-auto px-6 py-10">
