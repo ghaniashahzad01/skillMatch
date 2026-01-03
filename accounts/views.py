@@ -2,11 +2,16 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import EmployerRegisterForm
 
+
 def employer_register(request):
-    form = EmployerRegisterForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('login')
+    if request.method == "POST":
+        form = EmployerRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = EmployerRegisterForm()
+
     return render(request, 'accounts/employer_register.html', {'form': form})
 
 
@@ -20,9 +25,15 @@ def login_view(request):
         if user is not None:
             login(request, user)
 
+           
             if user.is_employer:
                 return redirect('employer-dashboard')
 
             return redirect('home')
+
+       
+        return render(request, 'accounts/login.html', {
+            'error': 'Invalid username or password'
+        })
 
     return render(request, 'accounts/login.html')

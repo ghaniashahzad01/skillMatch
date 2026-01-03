@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Employer Dashboard | SkillMatch</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+
+<body class="bg-gray-950 text-gray-100 min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="bg-gray-900 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-500">
+                SkillMatch
+            </h1>
+
+            <div class="text-gray-300">
+                Logged in as <span class="text-white font-semibold">{{ request.user.username }}</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="max-w-7xl mx-auto px-6 py-10">
+
+        <h1 class="text-3xl font-bold text-white">
+            Employer Dashboard
+        </h1>
+        <p class="text-gray-400 mt-1">
+            Manage your jobs and applicants
+        </p>
+
+        <!-- STATS CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+                <p class="text-gray-400 text-sm">Total Jobs</p>
+                <p class="text-3xl font-bold mt-2">0</p>
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+                <p class="text-gray-400 text-sm">Applications</p>
+                <p class="text-3xl font-bold mt-2">0</p>
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+                <p class="text-gray-400 text-sm">Active Listings</p>
+                <p class="text-3xl font-bold mt-2">0</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
