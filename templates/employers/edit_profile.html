@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile | SkillMatch</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+
+<body class="bg-gray-950 text-gray-100 min-h-screen">
+
+    {% include 'base/navbar.html' %}
+
+    <div class="max-w-3xl mx-auto px-6 py-12">
+
+        <h1 class="text-3xl font-bold text-white mb-6">
+            Edit Profile
+        </h1>
+
+        <form method="POST" enctype="multipart/form-data"
+              class="bg-gray-900 border border-gray-800 rounded-xl p-8 space-y-6">
+            {% csrf_token %}
+
+            <!-- COMPANY NAME -->
+            <div>
+                <label class="block text-sm text-gray-400 mb-1">
+                    Company Name
+                </label>
+                {{ form.company_name }}
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div>
+                <label class="block text-sm text-gray-400 mb-1">
+                    Description
+                </label>
+                {{ form.description }}
+            </div>
+
+            <!-- LOCATION -->
+            <div>
+                <label class="block text-sm text-gray-400 mb-1">
+                    Location
+                </label>
+                {{ form.location }}
+            </div>
+
+            <!-- WEBSITE -->
+            <div>
+                <label class="block text-sm text-gray-400 mb-1">
+                    Website
+                </label>
+                {{ form.website }}
+            </div>
+
+            <!-- PROFILE PICTURE (CLEAN UI) -->
+            <div>
+                <label class="block text-sm text-gray-400 mb-2">
+                    Profile Picture
+                </label>
+
+                <input
+                    type="file"
+                    name="profile_picture"
+                    class="block w-full text-sm text-gray-300
+                           file:bg-gray-800 file:border file:border-gray-700
+                           file:rounded-lg file:px-4 file:py-2
+                           file:text-gray-100 hover:file:bg-gray-700">
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="flex space-x-4 pt-4">
+                <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg
+                               font-semibold text-white">
+                    Save Changes
+                </button>
+
+                <a href="{% url 'employer-profile' %}"
+                   class="px-6 py-2 rounded-lg border border-gray-700
+                          text-gray-300 hover:bg-gray-800">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

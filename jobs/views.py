@@ -3,12 +3,21 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from .forms import JobForm
 from .models import Job
+from employers.models import EmployerProfile
+from django.contrib import messages
 
 
 @login_required
 def create_job(request):
-    if not request.user.is_employer:
-        return redirect('login')
+
+    profile = EmployerProfile.objects.get(user=request.user)
+
+    if not profile.is_complete():
+        messages.warning(
+            request,
+            "Please complete your company profile before posting a job."
+        )
+        return redirect('employer-dashboard')
 
     if request.method == 'POST':
         form = JobForm(request.POST)
@@ -21,8 +30,6 @@ def create_job(request):
         form = JobForm()
 
     return render(request, 'jobs/create_job.html', {'form': form})
-
-
 
 @login_required
 def edit_job(request, job_id):
@@ -63,3 +70,7 @@ def delete_job(request, job_id):
     return render(request, 'jobs/delete_job_confirm.html', {
         'job': job
     })
+
+
+
+

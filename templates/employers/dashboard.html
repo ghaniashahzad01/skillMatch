@@ -24,12 +24,35 @@
                 </p>
             </div>
 
-            <a href="{% url 'job-create' %}"
-               class="bg-blue-600 hover:bg-blue-700 transition
-                      px-6 py-3 rounded-lg font-semibold text-white">
-                + Create Job
+            {% if profile_incomplete %}
+                <button disabled
+                        class="bg-gray-700 cursor-not-allowed
+                               px-6 py-3 rounded-lg font-semibold text-gray-300">
+                    Complete Profile to Post Job
+                </button>
+            {% else %}
+                <a href="{% url 'job-create' %}"
+                   class="bg-blue-600 hover:bg-blue-700 transition
+                          px-6 py-3 rounded-lg font-semibold text-white">
+                    + Create Job
+                </a>
+            {% endif %}
+        </div>
+
+        <!-- PROFILE INCOMPLETE WARNING -->
+        {% if profile_incomplete %}
+        <div class="mt-6 bg-yellow-900/40 border border-yellow-700
+                    text-yellow-300 rounded-xl p-4 flex justify-between items-center">
+            <p>
+                ⚠️ Complete your company profile to start posting jobs.
+            </p>
+            <a href="{% url 'employer-profile-edit' %}"
+               class="bg-yellow-600 hover:bg-yellow-700
+                      px-4 py-2 rounded-lg text-black font-semibold">
+                Complete Profile
             </a>
         </div>
+        {% endif %}
 
         <!-- STATS -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
@@ -84,27 +107,26 @@
 
                             <div class="flex items-center space-x-4">
 
-                   <a href="{% url 'job-edit' job.id %}"
-                     class="text-blue-400 hover:underline text-sm">
-                         Edit
-                   </a>
+                                <a href="{% url 'job-edit' job.id %}"
+                                   class="text-blue-400 hover:underline text-sm">
+                                    Edit
+                                </a>
 
-                   <a href="{% url 'job-toggle' job.id %}"
-                   class="text-sm {% if job.is_active %}text-yellow-400{% else %}text-green-400{% endif %}">
-                   {% if job.is_active %}
-                       Deactivate
-                   {% else %}
-                   Activate
-                  {% endif %}
-                 </a>
+                                <a href="{% url 'job-toggle' job.id %}"
+                                   class="text-sm {% if job.is_active %}text-yellow-400{% else %}text-green-400{% endif %}">
+                                    {% if job.is_active %}
+                                        Deactivate
+                                    {% else %}
+                                        Activate
+                                    {% endif %}
+                                </a>
 
-                 <a href="{% url 'job-delete' job.id %}"
-                  class="text-red-400 hover:underline text-sm">
-                Delete
-                </a>
+                                <a href="{% url 'job-delete' job.id %}"
+                                   class="text-red-400 hover:underline text-sm">
+                                    Delete
+                                </a>
 
-
-               </div>
+                            </div>
 
                         </div>
                     {% endfor %}
@@ -116,11 +138,14 @@
                     <p class="text-gray-400">
                         You haven’t posted any jobs yet.
                     </p>
-                    <a href="{% url 'job-create' %}"
-                       class="inline-block mt-4 bg-blue-600 hover:bg-blue-700
-                              px-6 py-2 rounded-lg font-semibold text-white">
-                        Create your first job
-                    </a>
+
+                    {% if not profile_incomplete %}
+                        <a href="{% url 'job-create' %}"
+                           class="inline-block mt-4 bg-blue-600 hover:bg-blue-700
+                                  px-6 py-2 rounded-lg font-semibold text-white">
+                            Create your first job
+                        </a>
+                    {% endif %}
                 </div>
             {% endif %}
 

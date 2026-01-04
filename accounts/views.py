@@ -1,18 +1,30 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from .forms import EmployerRegisterForm
-
+from employers.models import EmployerProfile
+from django.contrib.auth import authenticate, login, logout
 
 def employer_register(request):
+
     if request.method == "POST":
         form = EmployerRegisterForm(request.POST)
+
         if form.is_valid():
-            form.save()
-            return redirect('login')
+            user = form.save()
+
+            login(request, user)
+            return redirect('employer-dashboard')
+
+        else:
+            print(form.errors)
+
     else:
         form = EmployerRegisterForm()
 
-    return render(request, 'accounts/employer_register.html', {'form': form})
+    return render(request, 'accounts/employer_register.html', {
+        'form': form
+    })
+
 
 
 def login_view(request):

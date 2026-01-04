@@ -12,6 +12,10 @@
                     {{ request.user.username }}
                 </span>
             </span>
+           <a href="{% url 'employer-profile' %}"
+            class="hover:text-white">
+           Profile
+           </a>
 
             <a href="{% url 'logout' %}"
                class="text-red-400 hover:text-red-500 font-medium">

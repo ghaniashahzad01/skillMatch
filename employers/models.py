@@ -1,27 +1,31 @@
 from django.db import models
-from accounts.models import User
-
+from django.conf import settings
 
 class EmployerProfile(models.Model):
     user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        related_name='employer_profile'
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
     )
 
-    company_name = models.CharField(max_length=200)
+    company_name = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
-    location = models.CharField(max_length=100, blank=True)
+    location = models.CharField(max_length=255, blank=True)
     website = models.URLField(blank=True)
 
     profile_picture = models.ImageField(
         upload_to='profile_pics/',
-        default='profile_pics/default.png',
-        blank=True
+        default='profile_pics/default.png'
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def is_complete(self):
+        return bool(
+            self.company_name and
+            self.description and
+            self.location
+        )
 
     def __str__(self):
-        return self.company_name
+        return str(self.user)
